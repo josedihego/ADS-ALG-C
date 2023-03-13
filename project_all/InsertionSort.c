@@ -33,8 +33,11 @@ void printArray(int *A, int length)
 
 int main(int argc, char *argv[])
 {
-     int A[] = {2, 4, -1, 0, 4, 3, 0, 9, -5};
-     insertionSort(A, 9);
-     printArray(A, 9);
+     int A[] = {2, 4, -1, 0, 4, 3, 0, 9, -5, 15,10,0};
+     int size_total = sizeof(A);
+     int size_one =  sizeof(A[0]);
+     int size = size_total/size_one;
+     insertionSort(A, size);
+     printArray(A, size);
      return 0;
 }
