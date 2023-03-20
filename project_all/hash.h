@@ -1,4 +1,4 @@
-#include "LinkedList.h"
+#include "linked_list.h"
 
 typedef struct Hash{
    struct List * T;      

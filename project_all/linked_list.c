@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "LinkedList.h"
+#include "linked_list.h"
 
 void insertL(List * L, Node* x)
 {

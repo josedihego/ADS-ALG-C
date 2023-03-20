@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "Pilha.h"
+#include "pilha.h"
 int MAX=5;
 
 void push( Stack * s, int e)

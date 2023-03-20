@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "Hash.h"
+#include "hash.h"
 
 int main(int argc, char *argv[])
 {

@@ -1,5 +1,5 @@
 #include <math.h>
-#include "Hash.h"
+#include "hash.h"
 
 #define MAX  30
 

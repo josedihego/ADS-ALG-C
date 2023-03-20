@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "Tree.h"
+#include "tree.h"
 
 void inOrderTreeWalk(Node * x)
 {
