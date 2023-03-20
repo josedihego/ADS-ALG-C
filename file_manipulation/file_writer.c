@@ -6,7 +6,7 @@
 #define MAX_VALUE_IN_LIST 80
 #define NUM_MAX_LISTS 10
 
-int *generare_random_list()
+int * generare_random_list()
 {
     int size_list = (rand() % MAX_LIST_SIZE) + 1;
     int *my_list = (int *)malloc((size_list + 1) * sizeof(int));
@@ -16,7 +16,7 @@ int *generare_random_list()
     {
         random_num = (rand() % MAX_VALUE_IN_LIST) + 1;
         my_list[i] = random_num;
-        printf("%d\n", random_num);
+        //printf("%d\n", random_num);
     }
     my_list[size_list] = -1;
     return my_list;

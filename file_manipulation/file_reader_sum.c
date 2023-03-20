@@ -4,10 +4,10 @@
 
 int main()
 {
-    FILE *fp = fopen("lists.txt", "r");
+    FILE *fp_in = fopen("lists.txt", "r");
     FILE *f_out = fopen("saida.txt", "w");
 
-    if (fp == NULL || f_out == NULL)
+    if (fp_in == NULL || f_out == NULL)
     {
         printf("Arquivos não podem ser abertos.");
         return 1;
@@ -16,8 +16,9 @@ int main()
     const char comma[] = ",";
     char *slice;
 
-    while (fgets(line, 255, fp) != NULL)
+    while (fgets(line, 255, fp_in) != NULL)
     {
+        //strtok: (1)não é thread-safe e (2) modifica a string
         slice = strtok(line, comma);
         int soma = 0;
         int value;
@@ -35,7 +36,7 @@ int main()
         fputs(text, f_out);
     }
 
-    fclose(fp);
+    fclose(fp_in);
     fclose(f_out);
     return 0;
 }
