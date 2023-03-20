@@ -11,5 +11,4 @@ int main(void)
     while(x<= 50);
       
    printf("%s","fim do programa");
-   system("PAUSE") ;
 }
