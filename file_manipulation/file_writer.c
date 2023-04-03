@@ -4,7 +4,7 @@
 
 #define MAX_LIST_SIZE 30
 #define MAX_VALUE_IN_LIST 80
-#define NUM_MAX_LISTS 10
+#define NUM_MAX_LISTS 1000
 
 int * generare_random_list()
 {

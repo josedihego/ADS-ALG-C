@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+#include <stdlib.h>
 int main() {
     FILE *fp;
     char line[255];
@@ -7,7 +7,7 @@ int main() {
     fp = fopen("lists.txt", "r");
     if (fp == NULL) {
         printf("Arquivo não pode ser aberto.");
-        return 1;
+        return EXIT_FAILURE;
     }
 
     while (fgets(line, 255, fp) != NULL) {
@@ -15,5 +15,5 @@ int main() {
     }
 
     fclose(fp);
-    return 0;
+    return EXIT_SUCCESS;
 }

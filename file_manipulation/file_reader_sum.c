@@ -5,9 +5,9 @@
 int main()
 {
     FILE *fp_in = fopen("lists.txt", "r");
-    FILE *f_out = fopen("saida.txt", "w");
+    FILE *fp_out = fopen("saida.txt", "w");
 
-    if (fp_in == NULL || f_out == NULL)
+    if (fp_in == NULL || fp_out == NULL)
     {
         printf("Arquivos não podem ser abertos.");
         return 1;
@@ -29,14 +29,14 @@ int main()
             soma = soma + value;
             slice = strtok(NULL, comma);
         }
-        printf("soma: %d ", soma);
+        //printf("soma: %d ", soma);
         sprintf(text, "%d", soma);
         sprintf(text, "%s%s",text, "\n");
-        printf("texto: %s", text);
-        fputs(text, f_out);
+        //printf("texto: %s", text);
+        fputs(text, fp_out);
     }
 
     fclose(fp_in);
-    fclose(f_out);
+    fclose(fp_out);
     return 0;
 }
