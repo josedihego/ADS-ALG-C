@@ -68,34 +68,22 @@ void insertionSort(int *A, int length)
      }
 }
 
-int * generate_random_numbers(int qnt){
-    int * result = (int *)malloc(qnt * sizeof(int));
-    for(int i = 0; i < qnt; i = i +1){
-        result[i]=  rand() % (MAX_NUMBER+1);
-    }
-    return result;
+int *generate_random_numbers(int qnt)
+{
+     int *result = (int *)malloc(qnt * sizeof(int));
+     for (int i = 0; i < qnt; i = i + 1)
+     {
+          result[i] = rand() % (MAX_NUMBER + 1);
+     }
+     return result;
 }
 
-int main(){
-    srand(time(NULL));
-    int * retorno = generate_random_numbers(30);
-    for(int i =0; i < 30; i = i +1){
-        printf("%d\n", retorno[i]);
-    }
-
-  // criem  um array com 10.000 elementos aleatórios inteiros com números entre 1 e 10.000
-  // ordenem esse array com o merge sort
-  // depois ordenem com o insertion sort
-  // compare os tempos entre as ordenações
-
-  time_t inicio, fim;
-
-  inicio = clock();
-  int b = 0;
-  for(int i = 0; i < 1000000; i = i +1){
-    b = b + 1;
-  }
-  fim = clock();
-  float tempo_transcorido = ((float)fim-inicio)/CLOCKS_PER_SEC;
-  printf("Tempo transcorrido: %f segundos \n", tempo_transcorido);
+int main()
+{
+     srand(time(NULL));
+     
+     time_t inicio, fim;
+     inicio = clock();
+     fim = clock();
+     float tempo_transcorido = ((float)fim - inicio) / CLOCKS_PER_SEC;
 }
