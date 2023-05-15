@@ -129,5 +129,5 @@ int main(void)
     dequeue(q);
     enqueue(q, 0);
     printQueue(q);
-    system("PAUSE");
+    return EXIT_SUCCESS;
 }

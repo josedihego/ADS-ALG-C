@@ -6,7 +6,6 @@ typedef struct Node
     struct Node *prev;
     struct Node *next;
     int data;
-    int d;
 } Node;
 
 typedef struct List
@@ -97,7 +96,6 @@ int main(void)
     n = searchL(L, 90);
     if (n == NULL)
         printf("%s", "Elemento nao encontrado\n");
-
-    system("PAUSE");
-    return 0;
+    
+    return EXIT_SUCCESS;
 }
