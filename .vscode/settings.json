@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "cstdlib": "c",
-        "my_stack.h": "c",
-        "stdbool.h": "c"
-    }
-}

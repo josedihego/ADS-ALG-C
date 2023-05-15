@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
 
 #define MAX_INT 32767
 #define MAX_NUMBER 500
@@ -80,10 +81,27 @@ int *generate_random_numbers(int qnt)
 
 int main()
 {
+     int tam = 100000000;
+     int * array_gerado = generate_random_numbers(tam);
+     int * copia = malloc(tam * sizeof(int));
+     for(int i = 0; i < tam; i = i +1){
+          copia[i] = array_gerado[i];
+     }
+
      srand(time(NULL));
      
      time_t inicio, fim;
      inicio = clock();
+     //insertionSort(array_gerado,tam);
      fim = clock();
      float tempo_transcorido = ((float)fim - inicio) / CLOCKS_PER_SEC;
+     printf("Tempo em segundos insertion-sort: %f\n",tempo_transcorido);
+
+     inicio = clock();
+     mergeSort(copia,0,tam-1);
+     fim = clock();
+     tempo_transcorido = ((float)fim-inicio)/ CLOCKS_PER_SEC;
+     printf("Tempo em segundos merge-sort: %f\n",tempo_transcorido);
+
+
 }
