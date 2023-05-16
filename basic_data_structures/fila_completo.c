@@ -1,6 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+
+#define MAX  5
+
 typedef struct
 {
     int *values;
@@ -8,7 +11,6 @@ typedef struct
     int tail;
 } Queue;
 
-int MAX = 5;
 
 int isFull(Queue *q)
 {
