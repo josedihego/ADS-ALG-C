@@ -96,6 +96,6 @@ int main(void)
     n = searchL(L, 90);
     if (n == NULL)
         printf("%s", "Elemento nao encontrado\n");
-    
+
     return EXIT_SUCCESS;
 }
