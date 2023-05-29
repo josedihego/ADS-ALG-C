@@ -11,9 +11,9 @@ typedef struct Funcionario{
 typedef struct Empresa{
     char * CNPJ;
     Funcionario ** funcionarios;
+    //Funcionario * funcionarios [];
     int max;
     int atual;
-    //Funcionario * funcionarios [];
 } Empresa;
 
 void adicionar_funcionario(Empresa * emp , Funcionario * fun){
