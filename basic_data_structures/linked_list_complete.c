@@ -68,12 +68,12 @@ void init(List *L)
 
 int main(void)
 {
-    int i;
+   
     List *L = malloc(sizeof(List));
     Node *n;
     init(L);
 
-    for (i = 0; i <= 5; i++)
+    for (int i = 0; i <= 5; i++)
     {
         n = malloc(sizeof(Node));
         n->data = i;
