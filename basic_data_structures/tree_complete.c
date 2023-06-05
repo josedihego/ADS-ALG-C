@@ -220,6 +220,18 @@ void treeDelete(Tree *t, Node *z)
     }
 }
 
+void initNode(Node *n)
+{
+    n->p = NULL;
+    n->left = NULL;
+    n->right = NULL;
+}
+
+void initTree(Tree *t)
+{
+    t->root = NULL;
+}
+
 Node *createNode(int key)
 {
     Node *res = malloc(sizeof(Node));
@@ -235,16 +247,8 @@ Tree *createTree()
     return res;
 }
 
-void initNode(Node *n)
-{
-    n->p = NULL;
-    n->left = NULL;
-    n->right = NULL;
-}
-void initTree(Tree *t)
-{
-    t->root = NULL;
-}
+
+
 
 int main(void)
 {
