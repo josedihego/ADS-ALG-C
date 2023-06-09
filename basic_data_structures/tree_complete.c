@@ -69,54 +69,50 @@ Node *treeSearch(Node *x, int key)
 }
 Node *iterativeTreeSearch(Node *x, int key)
 {
-    Node *temp = x;
-    while (temp != NULL && temp->key != key)
+    while (x != NULL && x->key != key)
     {
-        if (key < temp->key)
+        if (key < x->key)
         {
-            temp = temp->left;
+            x = x->left;
         }
         else
         {
-            temp = temp->right;
+            x = x->right;
         }
     }
-    return temp;
+    return x;
 }
 
 Node *treeMinimum(Node *x)
 {
-    Node *temp = x;
-    while (temp->left != NULL)
+    while (x->left != NULL)
     {
-        temp = temp->left;
+        x = x->left;
     }
-    return temp;
+    return x;
 }
 
 Node *treeMaximum(Node *x)
 {
-    Node *temp = x;
-    while (temp->right != NULL)
+    while (x->right != NULL)
     {
-        temp = temp->right;
+        x = x->right;
     }
-    return temp;
+    return x;
 }
 
 Node *treeSuccessor(Node *x)
 {
     Node *y;
-    Node *temp = x;
 
     if (x->right != NULL)
     {
         return treeMinimum(x->right);
     }
-    y = temp->p;
-    while (y != NULL && temp == y->right)
+    y = x->p;
+    while (y != NULL && x == y->right)
     {
-        temp = y;
+        x = y;
         y = y->p;
     }
     return y;
