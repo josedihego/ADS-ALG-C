@@ -120,16 +120,14 @@ Node *treeSuccessor(Node *x)
 Node *treePredecessor(Node *x)
 {
     Node *y;
-    Node *temp = x;
-
     if (x->left != NULL)
     {
         return treeMaximum(x->left);
     }
-    y = temp->p;
-    while (y != NULL && temp == y->left)
+    y = x->p;
+    while (y != NULL && x == y->left)
     {
-        temp = y;
+        x = y;
         y = y->p;
     }
     return y;
@@ -242,9 +240,6 @@ Tree *createTree()
     initTree(res);
     return res;
 }
-
-
-
 
 int main(void)
 {
