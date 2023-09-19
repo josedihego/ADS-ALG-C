@@ -54,6 +54,8 @@ void print_array(int *A, int lenght)
     // printf("%s\n", "]");
 }
 
+
+
 int main(){
     int A [] = {3,3,0,5,2,1974,1950, 50, -2000, 20, 30};
     printf("%s\n", "Antes:");
