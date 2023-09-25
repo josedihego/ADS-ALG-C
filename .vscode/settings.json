@@ -5,6 +5,8 @@
         "ctime": "c",
         "chrono": "c",
         "condition_variable": "c",
-        "mutex": "c"
+        "mutex": "c",
+        "cstdio": "c",
+        "format": "c"
     }
 }
