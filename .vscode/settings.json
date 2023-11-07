@@ -8,6 +8,7 @@
         "mutex": "c",
         "cstdio": "c",
         "format": "c",
-        "stdbool.h": "c"
+        "stdbool.h": "c",
+        "random": "c"
     }
 }
