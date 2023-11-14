@@ -3,12 +3,12 @@
 #include<string.h>
 
 typedef struct Person{
-    char * name;
+    char name [20];
     int age;
 }Person;
 
 void updatePerson(Person person){
-    person.name = "Bob";
+    strcpy(person.name, "Bob");
     person.age = 37;
 }
 

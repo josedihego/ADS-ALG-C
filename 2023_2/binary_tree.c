@@ -73,6 +73,68 @@ Node * tree_successor(Node * x){
     return y;
 }
 
+// do livro
+Node * tree_delete(Tree * T, Node * z){
+    Node * y;
+    Node * x;
+    if(z->left == NULL || z->right == NULL) y = z;
+    else y = tree_successor(z);
+    if(y->left != NULL) x = y->left;
+    else x = y->right;
+    if(x!=NULL) x->m = y->m;
+    if(y->m == NULL) T->root = x;
+    else{
+        if(y == y->m->left) y->m->left =  x;
+        else y->m->right = x;
+    }
+    if(y!=z) z->key = y->key;
+    return y;
+}
+void tree_delete2(Tree * T, Node * z){
+    Node * y;
+    Node * x;
+    if(z->left == NULL || z->right == NULL) y = z;
+    else y = tree_successor(z);
+    if(y->left != NULL) x = y->left;
+    else x = y->right;
+    if(x!=NULL) x->m = y->m;
+    if(y->m == NULL) T->root = x;
+    else{
+        if(y == y->m->left) y->m->left =  x;
+        else y->m->right = x;
+    }
+    if(y!=z) z->key = y->key;
+    free(y);
+}
+
+void printTree(Node* root, int space) {
+    // Base case
+    if (root == NULL) {
+        return;
+    }
+
+    // Increase distance between levels
+    space += 5;
+
+    // Process right child first
+    printTree(root->right, space);
+
+    // Print current node after space
+    printf("\n");
+    for (int i = 5; i < space; i++) {
+        printf(" ");
+    }
+    printf("%d\n", root->key);
+
+    // Process left child
+    printTree(root->left, space);
+}
+
+//  Node * y = tree_delete(T,z)
+//  free(y)
+
+// free(tree_delete(T,z))
+
 int main(){
    Tree * arvore_anos = malloc(sizeof(Tree));
    Node * n1 = create_node(1960);
@@ -100,6 +162,12 @@ int main(){
    Node * suc_n2_2001_p1 = tree_successor(n2);
    printf("Sucessor do 2001 p1 é: %d", suc_n2_2001_p1->key);
  
+  
+   printTree(arvore_anos->root,5);
+   tree_delete2(arvore_anos,arvore_anos->root);
+   printf("%s\n", "Depois da remoção da raiz:");
+   printTree(arvore_anos->root,5);
+
    /*
    arvore_anos->root = n1;
 

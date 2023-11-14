@@ -30,8 +30,8 @@ int main()
             slice = strtok(NULL, comma);
         }
         //printf("soma: %d ", soma);
-        sprintf(text, "%d", soma);
-        sprintf(text, "%s%s",text, "\n");
+        sprintf(text, "%d%s", soma, "\n");
+        //sprintf(text, "%s%s",text, "\n");
         //printf("texto: %s", text);
         fputs(text, fp_out);
     }
