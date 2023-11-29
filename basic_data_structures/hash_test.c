@@ -4,7 +4,7 @@
 
 int main(int argc, char *argv[])
 {
-  Hash * h = malloc(sizeof(Hash));
+  Hash * h =  (Hash *) malloc(sizeof(Hash));
   initHash(h);
   
   insertHash(h,30);
