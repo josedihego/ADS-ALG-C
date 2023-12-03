@@ -1,21 +1,25 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <limits.h>
+#include <stdbool.h>
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~Graph part~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 typedef struct Vertex
 {
     char *key;
     int d;
-    int pi;
+    struct Vertex *prev;
 } Vertex;
 
 typedef struct Edge
 {
-    Vertex *source;
-    Vertex *destination;
+    Vertex *src;
+    Vertex *dst;
     int w;
 } Edge;
-
 
 typedef struct Graph
 {
@@ -34,102 +38,165 @@ Vertex *create_vertex(char *key)
 Edge *create_edge(Vertex *source, Vertex *destination, int w)
 {
     Edge *e = malloc(sizeof(Edge));
-    e->destination = destination;
-    e->source = source;
+    e->dst = destination;
+    e->src = source;
     e->w = w;
     return e;
 }
 
-void initialize_single_source(Graph * graph, Vertex * s){
-    for(int i = 0; i < graph->nV; i = i +1){
-        graph->V[i]->d = INT_MAX;
-        graph->V[i]->pi = NULL;
+void initialize_single_source(Graph *G, Vertex *s)
+{
+    for (int i = 0; i < G->nV; i = i + 1)
+    {
+        G->V[i]->d = INT_MAX;
+        G->V[i]->prev = NULL;
     }
+    s->d = 0;
 }
 
-int w(Vertex * u, Vertex * v, Graph * graph){
+int w(Vertex *u, Vertex *v, Graph *G)
+{
     int i = 0;
-    while(i < graph->nE){
-        if(graph->E[i]->source==u && graph->E[i]->destination==v) return graph->E[i]->w;
+    while (i < G->nE)
+    {
+        if (G->E[i]->src == u && G->E[i]->dst == v)
+            return G->E[i]->w;
         i = i + 1;
     }
     return -1;
 }
 
-void relax(Vertex * u, Vertex * v, Graph * graph){
-    if (v->d > u->d + w(u,v,graph)){
-        v->d =  u->d + w(u,v,graph);
-        v->pi = u;
+void relax(Vertex *u, Vertex *v, Graph *G)
+{
+    if (v->d > u->d + w(u, v, G))
+    {
+        v->d = u->d + w(u, v, G);
+        v->prev = u;
     }
 }
 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~PriorityList part~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+typedef struct Node
+{
+    Vertex *vrt;
+    struct Node *next;
+} Node;
 
+typedef struct PriorityList
+{
+    Node *head;
+} PriorityList;
 
-typedef struct Node{
-    Vertex * key;
-    Vertex * next;
-}Node;
-
-typedef struct PriorityList{
-    Node * head;
-}PriorityList;
-
-void init_node(Node * node){
-    node->next =  NULL;
+void init_node(Node *node)
+{
+    node->next = NULL;
 }
-void init_list(PriorityList * list){
-    list->head =  NULL;
+void init_list(PriorityList *list)
+{
+    list->head = NULL;
 }
 
-void insert_list(PriorityList * list, Node * node){
- if(list->head == NULL) list->head = node;
- else{
-    Node * x = list->head;
-    Node * y = NULL;
-    while(x!= NULL && node->key->d > x->key->d){
-        y = x;
-        x =  x->next;
+void insert_list(PriorityList *list, Node *node)
+{
+    node->next = list->head;
+    list->head = node;
+}
+void remove_list(PriorityList *list, Node *node)
+{
+    Node *x = list->head;
+    Node *prev = NULL;
+    while (x != NULL && x != node)
+    {
+        prev = x;
+        x = x->next;
     }
-     y->next = node;
-     node->next = x; 
- }
+    if (prev != NULL)
+    {
+        prev->next = x->next;
+    }
+    else
+    {
+        list->head = x->next;
+    }
+    free(node);
 }
 
-Node * extract_min(PriorityList * list){
-    Node * res =  list->head;
-    list->head = list->head->next;
-    return res;
+Node *extract_min(PriorityList *list)
+{
+    if (list->head == NULL)
+        return NULL;
+    Node *min = list->head;
+    Node *x = list->head->next;
+    while (x != NULL)
+    {
+        if (x->vrt->d < min->vrt->d)
+        {
+            min = x;
+        }
+        x = x->next;
+    }
+    remove_list(list, min);
+    return min;
 }
 
-PriorityList * extract_list(Graph * G){
-    PriorityList * list = malloc(sizeof(PriorityList));
+PriorityList *create_list_from_graph(Graph *G)
+{
+    PriorityList *list = malloc(sizeof(PriorityList));
     init_list(list);
-    for(int i = 0; i < G->nE; i = i +1){
-        Node * n =  malloc(sizeof(Node));
+    for (int i = 0; i < G->nV; i = i + 1)
+    {
+        Node *n = malloc(sizeof(Node));
         init_node(n);
-        n->key = G->E[i];
-        insert_list(list,n);
+        n->vrt = G->V[i];
+        insert_list(list, n);
     }
+    return list;
 }
 
-void dijkstra(Graph * G,Vertex * s){
-    initialize_single_source(G,s);
-    PriorityList * Q =  extract_list(G);
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~dijkstra~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+void dijkstra(Graph *G, Vertex *s)
+{
+    initialize_single_source(G, s);
+    PriorityList *Q = create_list_from_graph(G);
     while (Q->head != NULL)
     {
-        Node * u = extract_min(Q);
-        
+        Vertex *u = extract_min(Q)->vrt;
+        for (int i = 0; i < G->nE; i = i + 1)
+        {
+            if (G->E[i]->src == u)
+            {
+                Vertex *v = G->E[i]->dst;
+                relax(u, v, G);
+            }
+        }
     }
-    
+    free(Q);
 }
+
+void print_distances(Graph *G, Vertex *s)
+{
+    for (int i = 0; i < G->nV; i = i + 1)
+    {
+        printf("The shortest path between %s and %s is: %d\n", s->key, G->V[i]->key, G->V[i]->d);
+    }
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~tests~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 int main()
 {
-  
+
     Graph *graph = malloc(sizeof(Graph));
     graph->nV = 5;
-    graph->nE =  10;
+    graph->nE = 10;
     graph->V = malloc(graph->nV * sizeof(Vertex *));
     graph->E = malloc(graph->nE * sizeof(Edge *));
 
@@ -164,4 +231,8 @@ int main()
     graph->E[8] = z_x;
     Edge *z_s = create_edge(z, s, 7);
     graph->E[9] = z_s;
+
+    dijkstra(graph, s);
+    print_distances(graph, s);
+    return EXIT_SUCCESS;
 }
