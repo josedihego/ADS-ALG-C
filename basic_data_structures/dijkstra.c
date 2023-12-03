@@ -16,6 +16,7 @@ typedef struct Edge
     int w;
 } Edge;
 
+
 typedef struct Graph
 {
     Vertex **V;
@@ -62,8 +63,65 @@ void relax(Vertex * u, Vertex * v, Graph * graph){
     }
 }
 
+
+
+
+typedef struct Node{
+    Vertex * key;
+    Vertex * next;
+}Node;
+
+typedef struct PriorityList{
+    Node * head;
+}PriorityList;
+
+void init_node(Node * node){
+    node->next =  NULL;
+}
+void init_list(PriorityList * list){
+    list->head =  NULL;
+}
+
+void insert_list(PriorityList * list, Node * node){
+ if(list->head == NULL) list->head = node;
+ else{
+    Node * x = list->head;
+    Node * y = NULL;
+    while(x!= NULL && node->key->d > x->key->d){
+        y = x;
+        x =  x->next;
+    }
+     y->next = node;
+     node->next = x; 
+ }
+}
+
+Node * extract_min(PriorityList * list){
+    Node * res =  list->head;
+    list->head = list->head->next;
+    return res;
+}
+
+PriorityList * extract_list(Graph * G){
+    PriorityList * list = malloc(sizeof(PriorityList));
+    init_list(list);
+    for(int i = 0; i < G->nE; i = i +1){
+        Node * n =  malloc(sizeof(Node));
+        init_node(n);
+        n->key = G->E[i];
+        insert_list(list,n);
+    }
+}
+
 void dijkstra(Graph * G,Vertex * s){
     initialize_single_source(G,s);
+    PriorityList * Q =  extract_list(G);
+    while (Q->head != NULL)
+    {
+        Node * u = extract_min(Q);
+        
+    }
+    
 }
 
 int main()
