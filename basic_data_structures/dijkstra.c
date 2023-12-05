@@ -104,25 +104,6 @@ void insert_list(PriorityList *list, Node *node)
     node->next = list->head;
     list->head = node;
 }
-void remove_list(PriorityList *list, Node *node)
-{
-    Node *x = list->head;
-    Node *prev = NULL;
-    while (x != NULL && x != node)
-    {
-        prev = x;
-        x = x->next;
-    }
-    if (prev != NULL)
-    {
-        prev->next = x->next;
-    }
-    else
-    {
-        list->head = x->next;
-    }
-    free(node);
-}
 
 Node *extract_min(PriorityList *list)
 {
