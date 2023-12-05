@@ -35,11 +35,11 @@ Vertex *create_vertex(char *key)
     v->key = key;
     return v;
 }
-Edge *create_edge(Vertex *source, Vertex *destination, int w)
+Edge *create_edge(Vertex *src, Vertex *dst, int w)
 {
     Edge *e = malloc(sizeof(Edge));
-    e->dst = destination;
-    e->src = source;
+    e->dst = dst;
+    e->src = src;
     e->w = w;
     return e;
 }
@@ -90,27 +90,45 @@ typedef struct PriorityList
     Node *head;
 } PriorityList;
 
-void init_node(Node *node)
+void init_node(Node *n)
 {
-    node->next = NULL;
+    n->next = NULL;
 }
-void init_list(PriorityList *list)
+void init_list(PriorityList *L)
 {
-    list->head = NULL;
-}
-
-void insert_list(PriorityList *list, Node *node)
-{
-    node->next = list->head;
-    list->head = node;
+    L->head = NULL;
 }
 
-Node *extract_min(PriorityList *list)
+void insert_list(PriorityList *L, Node *n)
 {
-    if (list->head == NULL)
+    n->next = L->head;
+    L->head = n;
+}
+
+void remove_list(PriorityList *L, Node *node)
+{
+    Node *x = L->head;
+    Node *prev = NULL;
+    while (x != NULL && x != node)
+    {
+        prev = x;
+        x = x->next;
+    }
+    if (prev != NULL)
+    {
+        prev->next = x->next;
+    }
+    else
+    {
+        L->head = x->next;
+    }
+}
+Node *extract_min(PriorityList *L)
+{
+    if (L->head == NULL)
         return NULL;
-    Node *min = list->head;
-    Node *x = list->head->next;
+    Node *min = L->head;
+    Node *x = L->head->next;
     while (x != NULL)
     {
         if (x->vrt->d < min->vrt->d)
@@ -119,24 +137,23 @@ Node *extract_min(PriorityList *list)
         }
         x = x->next;
     }
-    remove_list(list, min);
+    remove_list(L, min);
     return min;
 }
 
 PriorityList *create_list_from_graph(Graph *G)
 {
-    PriorityList *list = malloc(sizeof(PriorityList));
-    init_list(list);
+    PriorityList *L = malloc(sizeof(PriorityList));
+    init_list(L);
     for (int i = 0; i < G->nV; i = i + 1)
     {
         Node *n = malloc(sizeof(Node));
         init_node(n);
         n->vrt = G->V[i];
-        insert_list(list, n);
+        insert_list(L, n);
     }
-    return list;
+    return L;
 }
-
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~dijkstra~~~~~~~~~~~~~~~~
@@ -175,45 +192,45 @@ void print_distances(Graph *G, Vertex *s)
 int main()
 {
 
-    Graph *graph = malloc(sizeof(Graph));
-    graph->nV = 5;
-    graph->nE = 10;
-    graph->V = malloc(graph->nV * sizeof(Vertex *));
-    graph->E = malloc(graph->nE * sizeof(Edge *));
+    Graph *G = malloc(sizeof(Graph));
+    G->nV = 5;
+    G->nE = 10;
+    G->V = malloc(G->nV * sizeof(Vertex *));
+    G->E = malloc(G->nE * sizeof(Edge *));
 
     Vertex *s = create_vertex("s");
-    graph->V[0] = s;
+    G->V[0] = s;
     Vertex *t = create_vertex("t");
-    graph->V[1] = t;
+    G->V[1] = t;
     Vertex *x = create_vertex("x");
-    graph->V[2] = x;
+    G->V[2] = x;
     Vertex *y = create_vertex("y");
-    graph->V[3] = y;
+    G->V[3] = y;
     Vertex *z = create_vertex("z");
-    graph->V[4] = z;
+    G->V[4] = z;
 
     Edge *s_t = create_edge(s, t, 10);
-    graph->E[0] = s_t;
+    G->E[0] = s_t;
     Edge *s_y = create_edge(s, y, 5);
-    graph->E[1] = s_y;
+    G->E[1] = s_y;
     Edge *t_y = create_edge(t, y, 2);
-    graph->E[2] = t_y;
+    G->E[2] = t_y;
     Edge *t_x = create_edge(t, x, 1);
-    graph->E[3] = t_x;
+    G->E[3] = t_x;
     Edge *y_t = create_edge(y, t, 3);
-    graph->E[4] = y_t;
+    G->E[4] = y_t;
     Edge *y_x = create_edge(y, x, 9);
-    graph->E[5] = y_x;
+    G->E[5] = y_x;
     Edge *y_z = create_edge(y, z, 2);
-    graph->E[6] = y_z;
+    G->E[6] = y_z;
     Edge *x_z = create_edge(x, z, 4);
-    graph->E[7] = x_z;
+    G->E[7] = x_z;
     Edge *z_x = create_edge(z, x, 6);
-    graph->E[8] = z_x;
+    G->E[8] = z_x;
     Edge *z_s = create_edge(z, s, 7);
-    graph->E[9] = z_s;
+    G->E[9] = z_s;
 
-    dijkstra(graph, s);
-    print_distances(graph, s);
+    dijkstra(G, s);
+    print_distances(G, s);
     return EXIT_SUCCESS;
 }
