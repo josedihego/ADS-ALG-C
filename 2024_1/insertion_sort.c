@@ -2,8 +2,15 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdbool.h>
+#include<time.h>
 
-
+int * generate_random_array(int size, int max_value){
+    int * res = malloc(size * sizeof(int));
+    for(int i = 0 ; i < size; i = i +1){
+        res[i] = rand() % max_value;
+    }
+    return res;
+}
 
 int insertion_sort(int * A, int size){
     for(int j = 1; j < size; j = j +1 ){
@@ -26,8 +33,9 @@ void print_array(int * A, int size, char * help_text){
 }
 
 int main(){
-    int idades [] = {24, 20,21, 22,18,20,30,21}; 
-    int tamanho = 8;
+    srand(time(NULL));
+    int tamanho = 2000;
+    int * idades = generate_random_array(tamanho,125);
     print_array(idades,tamanho,"Antes");
     insertion_sort(idades, tamanho);
     print_array(idades,tamanho,"Depois");
