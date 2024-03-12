@@ -1,10 +1,10 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdbool.h>
-
+#include<math.h>
 
 // Fatorial
-
+//Ctrl + ;
 /*
 
 typedef struct Aluno{
@@ -43,4 +43,6 @@ int main(){
     scanf("%d",&n);
     printf("O %d-elemento da seq de Fibonacci e: %d\n", n, fibonacci(n)); 
     //main();
+    printf("sqrt: %.2f\n", sqrt(30.0));
+    return EXIT_FAILURE;
 }

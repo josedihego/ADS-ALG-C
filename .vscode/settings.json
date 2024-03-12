@@ -9,6 +9,9 @@
         "cstdio": "c",
         "format": "c",
         "stdbool.h": "c",
-        "random": "c"
+        "random": "c",
+        "math.h": "c",
+        "stdio.h": "c",
+        "limits.h": "c"
     }
 }
