@@ -36,7 +36,7 @@ void merge(int * A, int p, int q, int r){
 void merge_sort(int * A, int p, int r){
     if(p < r){
         int q = (p+r)/2;
-        merge_sort(A,p,q);// início ao meio
+        merge_sort(A,p,q);// inÃ­cio ao meio
         merge_sort(A,q+1,r);// meio+1 ao fim
         merge(A,p,q,r);
     }
