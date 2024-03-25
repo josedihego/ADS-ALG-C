@@ -32,6 +32,7 @@ void merge(int * A, int p, int q, int r){
     free(L);
     free(R);
 }
+//CODE
 
 void merge_sort(int * A, int p, int r){
     if(p < r){
