@@ -61,6 +61,29 @@ void insert_tree(MyTree * t, Node * x){
 
     }
 }
+
+void remove_tree_node(MyTree * t, Node * x){
+    if(x->left == NULL && x->right==NULL){
+        Node * p = x->p;
+        if(x->key < p->key){
+            p->left = NULL;
+        }
+        else{
+            p->right = NULL;
+        }
+    }
+    else if(x->left==NULL ^ x->right==NULL){
+        Node * c = x->left!=NULL? x->left : x->right;
+        c->p = x->p;
+        if(x->key < x->p->key){
+            x->p->left = c;
+        }
+        else{
+            x->p->right = c;
+        }
+    }
+    free(x);
+}
 int main(){
     /**
     MyTree * ar_pass = create_tree(create_node(56));
@@ -73,12 +96,18 @@ int main(){
     printf("Fim");
     * 
      */
+    Node * r15;
+    Node * r10;
     MyTree * ar_pass = create_empty_tree();
-    insert_tree(ar_pass, create_node(30));
-    insert_tree(ar_pass, create_node(79));
-    insert_tree(ar_pass, create_node(56));
-    insert_tree(ar_pass, create_node(21));
-    insert_tree(ar_pass, create_node(30));
+    insert_tree(ar_pass, create_node(8));
+    insert_tree(ar_pass, create_node(12));
+    insert_tree(ar_pass, create_node(7));
+    insert_tree(ar_pass, r10 = create_node(10));
+    insert_tree(ar_pass, r15 = create_node(15));
+    insert_tree(ar_pass, create_node(6));
+    insert_tree(ar_pass, create_node(18));
+    remove_tree_node(ar_pass,r15);
+    remove_tree_node(ar_pass,r10);
     printf("Fim");
 
 }
