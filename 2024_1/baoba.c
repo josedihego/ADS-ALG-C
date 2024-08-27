@@ -62,6 +62,25 @@ void insert_tree(MyTree * t, Node * x){
     }
 }
 
+Node * sucessor(Node * x){
+    Node * y = NULL;
+    if(x->right!=NULL){
+        y = x->right;
+        while(y->left != NULL)
+        {
+            y = y->left;
+        }
+    }
+    else{
+        y = x->p;
+        while(y!=NULL && y->right == x){
+            x=y;
+            y = y->p;
+        }
+    }
+    return y;
+}
+
 void remove_tree_node(MyTree * t, Node * x){
     if(x->left == NULL && x->right==NULL){
         Node * p = x->p;
@@ -71,6 +90,7 @@ void remove_tree_node(MyTree * t, Node * x){
         else{
             p->right = NULL;
         }
+        free(x);
     }
     else if(x->left==NULL ^ x->right==NULL){
         Node * c = x->left!=NULL? x->left : x->right;
@@ -81,8 +101,22 @@ void remove_tree_node(MyTree * t, Node * x){
         else{
             x->p->right = c;
         }
+        free(x);
     }
-    free(x);
+    else{
+        Node * suc_x =  sucessor(x);
+        x->key = suc_x->key;
+        remove_tree_node(t,suc_x);
+    }
+}
+
+void print_in_order_tree(Node * x){
+    if (x!=NULL){
+         print_in_order_tree(x->right);
+        printf(" %d, ", x->key);
+               print_in_order_tree(x->left);
+
+    }
 }
 int main(){
     /**
@@ -98,16 +132,33 @@ int main(){
      */
     Node * r15;
     Node * r10;
+    Node * r18;
+    Node * r11;
+    Node * r12;
     MyTree * ar_pass = create_empty_tree();
     insert_tree(ar_pass, create_node(8));
-    insert_tree(ar_pass, create_node(12));
+    insert_tree(ar_pass, r12 = create_node(12));
     insert_tree(ar_pass, create_node(7));
     insert_tree(ar_pass, r10 = create_node(10));
     insert_tree(ar_pass, r15 = create_node(15));
     insert_tree(ar_pass, create_node(6));
-    insert_tree(ar_pass, create_node(18));
-    remove_tree_node(ar_pass,r15);
-    remove_tree_node(ar_pass,r10);
+    insert_tree(ar_pass, r18 = create_node(18));
+    insert_tree(ar_pass, r11 = create_node(11));
+    insert_tree(ar_pass, create_node(13));
+    insert_tree(ar_pass, create_node(17));
+    insert_tree(ar_pass, create_node(14));
+    Node * suc_18 =  sucessor(r18);
+    Node * suc_11 =  sucessor(r11);
+    //remove_tree_node(ar_pass,r15);
+    //remove_tree_node(ar_pass,r10);
+    //8,12,7,10,15,6,18 , 11,13,17,14
+    printf("before start\n");
+    print_in_order_tree(ar_pass->root);
+    printf("\n end");
+    remove_tree_node(ar_pass,r12);
+    printf("after start\n");
+    print_in_order_tree(ar_pass->root);
+    printf("\n end");
     printf("Fim");
 
 }
