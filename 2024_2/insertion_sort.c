@@ -1,7 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <time.h>
 
+int *generate_random_integers(int size)
+{
+    srand(time(NULL));
+    int *values = malloc(sizeof(int) * size);
+    for (int i = 0; i < size; i = i + 1)
+    {
+        values[i] = rand() % 101;
+    }
+    return values;
+}
 void insertion_sort(int *A, int length)
 {
     for (int j = 1; j < length; j = j + 1)
@@ -31,9 +42,8 @@ void print_array(int *A, int length)
 
 int main()
 {
-
-    int values[] = {27, 93, 60, 493, -1, 0, 10, 14, -20, 7};
-    int length = 10;
+    int length = 7;
+    int *values = generate_random_integers(length);
     printf("\nAntes\n");
     print_array(values, length);
     insertion_sort(values, length);
