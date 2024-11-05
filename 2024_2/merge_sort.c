@@ -12,6 +12,7 @@ void merge(int * A, int p, int q, int r){
     for(i=0; i < n1; i = i+1){
         L[i]= A[p+i-0];
     }
+    
     // bus
 }
 
