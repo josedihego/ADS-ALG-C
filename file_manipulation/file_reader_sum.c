@@ -10,7 +10,7 @@ int main()
     if (fp_in == NULL || fp_out == NULL)
     {
         printf("Arquivos não podem ser abertos.");
-        return 1;
+        return EXIT_FAILURE;
     }
     char line[255];
     const char comma[] = ",";
@@ -38,5 +38,5 @@ int main()
 
     fclose(fp_in);
     fclose(fp_out);
-    return 0;
+    return EXIT_SUCCESS;
 }
