@@ -12,6 +12,12 @@ int main(){
         printf("&matrix[%d]: %p\n", i, matrix[i]);
         printf("&matrix[%d]: %p\n", i, &matrix[i]);
 
-        printf("sizeof(matrix[%d]): %lu\n", i, sizeof(matrix[i]));
+        printf("sizeof(matrix[%d]): %lu (address of the first element of the first row.)\n", i, sizeof(matrix[i]));
+        printf("sizeof(&matrix[%d]): %lu (address of the entire first row)\n", i, sizeof(&matrix[i]));
+
+        if((int*)(&matrix[i]) == (int*)(matrix[i])){
+            printf("&matrix[%d] == matrix[%d]\n",i,i);
+        }
+
     }
 }
