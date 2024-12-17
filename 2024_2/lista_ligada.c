@@ -50,13 +50,23 @@ void insert_list(My_List *ml, Node *x)
     x->prev = NULL;
 }
 
+void bulk_insertion(My_List * ml, int * values, int size){
+    for(int i = 0; i <size; i = i +1){
+        insert_list(ml,create_node(values[i]));
+    }
+}
+
 int main()
 {
     My_List *ml = create_list();
+    int valores [] = {5,7,0, 9, 15,12};
+    int size = sizeof(valores)/sizeof(int);
+    bulk_insertion(ml,valores,size);
+    /** 
     insert_list(ml, create_node(5));
     insert_list(ml, create_node(7));
     insert_list(ml, create_node(0));
-
+    */
     /**
     Node * n5 = create_node(5);
     Node * n7 = create_node(7);
@@ -68,7 +78,7 @@ int main()
     n0->prev = n7;
  */
 
-    Node *res = search_list(ml, 10);
+    Node *res = search_list(ml, 7);
     if (res != NULL)
         printf("res: %d\n", res->key);
     else
