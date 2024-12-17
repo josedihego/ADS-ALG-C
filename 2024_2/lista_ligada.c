@@ -59,9 +59,9 @@ void bulk_insertion(My_List * ml, int * values, int size){
 int main()
 {
     My_List *ml = create_list();
-    int valores [] = {5,7,0, 9, 15,12};
-    int size = sizeof(valores)/sizeof(int);
-    bulk_insertion(ml,valores,size);
+    int numbers [] = {5,7,0, 9, 15,12};
+    int size = sizeof(numbers)/sizeof(int);
+    bulk_insertion(ml,numbers,size);
     /** 
     insert_list(ml, create_node(5));
     insert_list(ml, create_node(7));
