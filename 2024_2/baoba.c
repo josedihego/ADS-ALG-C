@@ -108,6 +108,30 @@ Node * tree_successor(Node * x){
     return y;
 }
 
+Node * tree_delete(My_Tree * T, Node * z){
+    Node * y = NULL;
+    Node * x = NULL;
+    
+    if(z->left==NULL || z->right == NULL) y = z;
+    else y = tree_successor(z);
+    
+    if(y->left != NULL) x = y->left;
+    else x = y->right;
+
+    if(x!=NULL) x->mother = y->mother;
+
+    if(y->mother == NULL) T->root = x;
+    else{
+        if(y== y->mother->left) y->mother->left = x;
+        else y->mother->right = x;
+    }
+    if(y!=z) z->key = y->key;
+
+    return y;
+}
+
+
+
 int main(){
     My_Tree * t = create_empty_tree();
     insert_tree(create_node(5),t);
