@@ -9,6 +9,7 @@ int * generate_random_array(int size){
     for(int i = 0 ; i < size; i = i +1){
         result[i] = rand()%500  ;
     }
+    return result;
 }
 void insertion_sort(int *A, int length)
 {
