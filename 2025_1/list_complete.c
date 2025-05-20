@@ -37,9 +37,43 @@ void print_list(List_if * list){
     printf(" (NULL)\n\n");
 }
 
+void insert_list(List_if * list, Node * new){
+    if(list->head==NULL){
+        list->head = new;
+    }
+    else{
+        //list->head = new;
+        new->next = list->head;
+        list->head->prev = new;
+        list->head = new;
+        
+    }
+}
+void remove_list(List_if * list, int key){
+    Node * x = list->head;
+    while(x!=NULL && key != x->key){
+        x = x->next;
+    }
+    if(x!=NULL){
+        if(x==list->head){
+            list->head = list->head->next;
+            if(list->head!=NULL) list->head->prev = NULL;
+            free(x);
+        }
+    }
+}
+
 int main(){
     List_if * idades = init_list();
 
+    insert_list(idades, init_node(20));
+    insert_list(idades, init_node(37));
+    insert_list(idades, init_node(18));
+
+    insert_list(idades, init_node(40));
+    insert_list(idades, init_node(18));
+    insert_list(idades, init_node(-1));
+    /*
     Node *  no_joao = init_node(20);
     idades->head = no_joao;
 
@@ -50,7 +84,7 @@ int main(){
     Node * no_julio = init_node(18);
     no_rodrigo->next = no_julio;
     no_julio->prev = no_rodrigo;
-
+  */
     print_list(idades);
 
 }
