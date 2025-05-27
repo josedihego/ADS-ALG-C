@@ -51,17 +51,33 @@ void insert_list(List_if * list, Node * new){
 }
 void remove_list(List_if * list, int key){
     Node * x = list->head;
-    while(x!=NULL && key != x->key){
+    while(x!=NULL && x->key!=key){
         x = x->next;
     }
     if(x!=NULL){
         if(x==list->head){
-            list->head = list->head->next;
-            if(list->head!=NULL) list->head->prev = NULL;
-            free(x);
+            if(x->next==NULL) {
+                list->head = NULL;
+            }
+            else{
+                list->head = x->next;
+                list->head->prev = NULL;
+            }
         }
+        else{
+            if(x->prev != NULL){
+                x->prev->next = x->next;
+            }
+            if(x->next!=NULL){
+                x->next->prev = x->prev;
+            }
+        }
+        free(x);
     }
+        
 }
+
+
 
 int main(){
     List_if * idades = init_list();
@@ -73,9 +89,11 @@ int main(){
     insert_list(idades, init_node(40));
     insert_list(idades, init_node(18));
     insert_list(idades, init_node(-1));
+
+    
     /*
     Node *  no_joao = init_node(20);
-    idades->head = no_joao;
+    idades->head = no_joao;free(x);
 
     Node * no_rodrigo = init_node(37);
     no_joao->next = no_rodrigo;
@@ -86,5 +104,16 @@ int main(){
     no_julio->prev = no_rodrigo;
   */
     print_list(idades);
-
+    remove_list(idades, -1);
+    printf("Depois\n");
+    print_list(idades);
+    remove_list(idades, 40);
+    printf("Depois\n");
+    print_list(idades);
+     remove_list(idades, 20);
+    printf("Depois\n");
+    print_list(idades);
+     remove_list(idades, 100);
+    printf("Depois\n");
+    print_list(idades);
 }
