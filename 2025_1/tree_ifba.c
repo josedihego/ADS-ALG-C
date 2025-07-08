@@ -8,6 +8,7 @@ typedef struct No{
     struct No * esq;
     struct No * dir;
     struct No * mae;
+    int balanco;
 }No;
 
 typedef struct Arvore{
@@ -20,9 +21,11 @@ No * criar_no(int chave){
     novo->esq = NULL;
     novo->dir = NULL;
     novo->mae = NULL;
+    novo->balanco = 0;
 }
 
 void inserir(Arvore * a, No * x){
+    // passo 1. Atualizar o balanço
     if(a->raiz == NULL){
         a->raiz = x;
     }
@@ -46,6 +49,34 @@ void inserir(Arvore * a, No * x){
         }
         x->mae = mae;
     }
+    //voltar usando o ponteiro mae
+    // até a raiz, se nessa volta
+    // voçê achar um balance de 2
+    // faça a rotação apropriada
+    // D, E, D->E, E->D
+}
+
+void rotacao_direita(Arvore * T, No * x){
+    No * y = x->esq;
+    x->esq = y->dir;
+    if(y->dir != NULL){
+        y->dir->mae = x;
+    }
+    y->mae = x->mae;
+    if(x->mae == NULL){
+        T->raiz = y;
+    }
+    else{
+        if(x == x->mae->esq){
+            x->mae->esq = y;
+        }
+        else{
+            x->mae->dir = y;
+        }
+    }
+    y->dir = y;
+    x->mae  = y;
+
 }
 
 int main(){
