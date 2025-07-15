@@ -78,11 +78,33 @@ void rotacao_direita(Arvore * T, No * x){
     x->mae  = y;
 
 }
+void imprimir_ordem(No * no){
+    if(no != NULL){
+        imprimir_ordem(no->esq);
+        printf(" %d ", no->chave);
+        imprimir_ordem(no->dir);
+    }
+}
+
+void imprimir_pre_ordem(No * no){
+    if(no != NULL){
+         printf(" %d ", no->chave);
+        imprimir_pre_ordem(no->esq);
+        imprimir_pre_ordem(no->dir);
+    }
+}
 
 int main(){
     Arvore * arvore = malloc(sizeof(Arvore));
     inserir(arvore, criar_no(9));
     inserir(arvore, criar_no(10));
     inserir(arvore, criar_no(8));
-    printf("Fim");   
+    inserir(arvore, criar_no(15));
+    inserir(arvore, criar_no(0));
+    inserir(arvore, criar_no(26));
+    printf("\n em ordem:");
+    imprimir_ordem(arvore->raiz);
+    printf("\n pré ordem:");
+    imprimir_pre_ordem(arvore->raiz);
+    printf("\nFim");   
 }
