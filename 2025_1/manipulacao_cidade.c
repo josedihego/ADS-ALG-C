@@ -25,7 +25,12 @@ int main() {
 
     while (fgets(line, 255, fp) != NULL) {
         printf("%s", line);
+        // criar os caminhos
+        // colocar no array caminhos
     }
+    // para a cidade c25 calcular os menores caminhos para
+    // todas as outras 49 cidades
+    
 
     fclose(fp);
     return EXIT_SUCCESS;
