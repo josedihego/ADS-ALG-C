@@ -12,7 +12,7 @@ typedef struct Caminho{
 
 int main() {
     FILE *fp;
-    char line[255];
+    char line[20];
 
     Caminho * caminhos [1016];
     //Caminho ** caminhos;  // opção 2
@@ -30,7 +30,7 @@ int main() {
     }
     // para a cidade c25 calcular os menores caminhos para
     // todas as outras 49 cidades
-    
+
 
     fclose(fp);
     return EXIT_SUCCESS;
