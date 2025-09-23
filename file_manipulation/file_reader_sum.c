@@ -13,7 +13,7 @@ int main()
         return EXIT_FAILURE;
     }
     char line[255];
-    const char comma[] = ",";
+    const char comma[] = "+";
     char *slice;
 
     while (fgets(line, 255, fp_in) != NULL)
