@@ -40,6 +40,7 @@ void insert(List * l, Node * n){
     }
 }
 
+
 void insert_v2(List * l, Node * n){
     if(l->head == NULL){
         l->head = n;
@@ -61,4 +62,11 @@ void remove(List * l , int key){
         l->head->prev = NULL;
         free(to_remove);
     }
+}
+
+int main(){
+    int l_i = 5;
+    int r_i = 8;
+    int i = 4;
+    Node * n = create_node(i);
 }
