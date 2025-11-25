@@ -86,6 +86,17 @@ bool atualizar_aluno_escola(Aluno * antigo, Aluno * novo, Escola * escola){
     }
 }
 
+void imprimir_aluno(Aluno * aluno){
+    printf("Nome %s\n",aluno->nome);
+
+}
+
+void imprimir_lista_alunos(Escola * escola){
+    for(int p =0; p < escola->prox; p = p +1){
+        imprimir_aluno(escola->alunos[p]);
+    }
+}
+
 
 int main(){
     Escola * escola = malloc(sizeof(Escola));
@@ -97,6 +108,15 @@ int main(){
     julio->matricula = "202.5345";
     julio->idade = 19;
     julio->nome = "Júlio";
+
+    Aluno * julio_novo = malloc(sizeof(Aluno));
+    julio_novo->matricula = "999.5345";
+    julio_novo->idade = 20;
+    julio_novo->nome = "Júlio X";
+
     inserir_aluno_escola(julio,escola);
+    imprimir_lista_alunos(escola);
+    atualizar_aluno_escola(julio,julio_novo,escola);
+    imprimir_lista_alunos(escola);
 
 }
