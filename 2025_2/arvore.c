@@ -37,6 +37,36 @@ void inserir_no(No * novo, Arvore * arvore){
     }
 }
 
+void remover_no(int chave, Arvore * arvore){
+    No * marcado = arvore->raiz;
+    while(marcado!=NULL && marcado->chave != chave){
+        if(chave > marcado->chave){
+            marcado = marcado->dir;
+        }
+        else{
+            marcado = marcado->esq;
+        }
+    }
+    if(marcado!=NULL){
+        //caso 1
+        if(marcado->esq==NULL && marcado->dir==NULL){
+            if(marcado->chave > marcado->mae->chave){
+                marcado->mae->dir = NULL;
+            }
+            else{
+                marcado->mae->esq = NULL;
+            }
+            free(marcado);
+        }
+        //caso 2
+        else if(marcado->esq==NULL || marcado->dir==NULL){
+            
+        }
+
+        //caso 3
+    }
+}
+
 int main(){
     No * n1 = malloc(sizeof(No));
     n1->chave = 1;
