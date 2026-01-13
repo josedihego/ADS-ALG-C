@@ -13,6 +13,15 @@ typedef struct Arvore{
     No * raiz;
 }Arvore;
 
+No * criar_no(int chave){
+    No * novo = malloc(sizeof(No));
+    novo->chave = chave;
+    novo->esq = NULL;
+    novo->dir = NULL;
+    novo->mae = NULL;
+    return novo;
+}
+
 void inserir_no(No * novo, Arvore * arvore){
     if(arvore->raiz==NULL){
         arvore->raiz = novo;
