@@ -2,19 +2,19 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-typedef struct No{
+typedef struct no{
     int chave;
-    struct No * esq;
-    struct No * dir;
-    struct No * mae;
-}No;
+    struct no * esq;
+    struct no * dir;
+    struct no * mae;
+}no;
 
 typedef struct Arvore{
-    No * raiz;
+    no * raiz;
 }Arvore;
 
-No * criar_no(int chave){
-    No * novo = malloc(sizeof(No));
+no * criar_no(int chave){
+    no * novo = malloc(sizeof(no));
     novo->chave = chave;
     novo->esq = NULL;
     novo->dir = NULL;
@@ -22,12 +22,33 @@ No * criar_no(int chave){
     return novo;
 }
 
-void inserir_no(No * novo, Arvore * arvore){
+void rotacionar_direita(Arvore * T, no * x){
+    no * y = x->esq;
+    x->esq = y->dir;
+    y->dir->mae = x;
+
+    y->mae = x->mae;
+    if(x->mae == NULL){
+        T->raiz = y;
+    }
+    else{
+        if(x== x->mae->esq){
+            x->mae->esq = y;
+        }
+        else{
+            x->mae->dir = y;
+        }
+    }
+    y->dir = x;
+    x->mae = y;
+}
+
+void inserir_no(no * novo, Arvore * arvore){
     if(arvore->raiz==NULL){
         arvore->raiz = novo;
     }
-    No * sisu = arvore->raiz;
-    No * mae = arvore->raiz;
+    no * sisu = arvore->raiz;
+    no * mae = arvore->raiz;
     while(sisu!=NULL){
         mae = sisu;
         if(novo->chave > sisu->chave){
@@ -47,7 +68,7 @@ void inserir_no(No * novo, Arvore * arvore){
 }
 
 void remover_no(int chave, Arvore * arvore){
-    No * marcado = arvore->raiz;
+    no * marcado = arvore->raiz;
     while(marcado!=NULL && marcado->chave != chave){
         if(chave > marcado->chave){
             marcado = marcado->dir;
@@ -77,7 +98,7 @@ void remover_no(int chave, Arvore * arvore){
 }
 
 int main(){
-    No * n1 = malloc(sizeof(No));
+    no * n1 = malloc(sizeof(no));
     n1->chave = 1;
     n1->dir = NULL;
     n1->esq = NULL;
