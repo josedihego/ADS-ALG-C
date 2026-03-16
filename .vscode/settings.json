@@ -8,6 +8,12 @@
     "limits.h": "c",
     "time.h": "c"
   },
+  "code-runner.executorMap": {
+    "c": "cd $dir && clang $fileName -o $fileNameWithoutExt -lm && $dir$fileNameWithoutExt"
+  },
+  "code-runner.runInTerminal": true,
+  "code-runner.saveFileBeforeRun": true,
+  "code-runner.clearPreviousOutput": true,
   "C_Cpp_Runner.cCompilerPath": "clang",
   "C_Cpp_Runner.cppCompilerPath": "clang++",
   "C_Cpp_Runner.debuggerPath": "lldb",
