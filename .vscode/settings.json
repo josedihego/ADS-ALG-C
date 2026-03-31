@@ -9,8 +9,9 @@
     "time.h": "c"
   },
   "code-runner.executorMap": {
-    "c": "cd $dir && clang $fileName -o $fileNameWithoutExt -lm && $dir$fileNameWithoutExt"
-  },
+  "c": "cd $dir && gcc $fileName -o $fileNameWithoutExt -lm && $dir$fileNameWithoutExt",
+  "cpp": "cd $dir && g++ $fileName -o $fileNameWithoutExt -lm && $dir$fileNameWithoutExt"
+},
   "code-runner.runInTerminal": true,
   "code-runner.saveFileBeforeRun": true,
   "code-runner.clearPreviousOutput": true,
