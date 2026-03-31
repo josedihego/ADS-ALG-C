@@ -14,6 +14,10 @@ typedef struct Produto{
     Dimensao * dimensao; 
 }Produto;
 
+typedef struct Loja_ADS{
+    Produto ** produtos;
+}Loja_ADS;
+
 Produto * novo_produto(char * nome, char * codigo, float preco){
     Produto * novo = malloc(sizeof(Produto));
     novo->codigo = codigo;
