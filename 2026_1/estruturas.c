@@ -48,6 +48,6 @@ void imprimir_produto(Produto * produto){
 
 int main(){
     Produto * p = novo_produto("Patinete Elétrico Novo", "PAT-XT-82", 1200);
-    p->dimensao = nova_dimensao(1.5,0.10,0.60);
+    p->dimensao = nova_dimensao(1.5,0.60,0.10);
     imprimir_produto(p);
 }
