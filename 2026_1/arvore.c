@@ -18,6 +18,7 @@ typedef struct Payload
 typedef struct No
 {
     int chave;
+    int balanco;
     Payload *payload;
     struct No *esq;
     struct No *dir;
@@ -34,6 +35,7 @@ No *criar_no(int chave)
     No *novo = malloc(sizeof(No));
     novo->chave = chave;
     novo->dir = novo->esq = novo->mae = NULL;
+    novo->balanco = 0;
     return novo;
 }
 
@@ -61,8 +63,52 @@ No *buscar_no(int chave, Arvore *arvore)
     return x;
 }
 
+void rotacione(No *no, char penultima, char ultima)
+{
+    if (penultima == 'd' && ultima == 'd')
+    {
+        // rotação simples a esquerda
+    }
+    else if (penultima == 'e' && ultima == 'e')
+    {
+        // rotação simples a direita
+    }
+    else if (penultima == 'd' && ultima == 'e')
+    {
+        // rotação dupla
+        // 1> rotação simples a direita
+        // 2> rotação simples a esquerda
+    }
+    else
+    {
+        // rotação dupla
+        // 1> rotação simples a esquerda
+        //  2> rotação simples a direita
+    }
+}
+
+int modulo(int valor)
+{
+    if (valor < 0)
+        return valor * -1;
+    return valor;
+}
+
+void verificar_balance(No *no, char penultima, char ultima)
+{
+    while (no->mae != NULL)
+    {
+        if (modulo(no->balanco) > 1)
+        {
+            rotacione(no, penultima, ultima);
+        }
+    }
+}
+
 void inserir_no(No *novo, Arvore *arvore)
 {
+    char ultima = 'e';
+    char penultima = 'e';
     if (arvore->raiz == NULL)
     {
         arvore->raiz = novo;
@@ -76,10 +122,12 @@ void inserir_no(No *novo, Arvore *arvore)
             luke_skywalker = c3po;
             if (novo->chave < c3po->chave)
             {
+                c3po->balanco = c3po->balanco - 1;
                 c3po = c3po->esq;
             }
             else
             {
+                c3po->balanco = c3po->balanco + 1;
                 c3po = c3po->dir;
             }
         }
@@ -92,79 +140,107 @@ void inserir_no(No *novo, Arvore *arvore)
             luke_skywalker->dir = novo;
         }
         novo->mae = luke_skywalker;
+        if (novo->mae->chave < novo->chave)
+        {
+            ultima = 'd';
+        }
+        else
+        {
+            ultima = 'e';
+        }
+        if (novo->mae->mae->chave < novo->chave)
+        {
+            penultima = 'd';
+        }
+        else
+        {
+            penultima = 'e';
+        }
+    }
+
+    verficar_balance(novo, penultima, ultima);
+}
+
+void imprimir_arvore(No *no, int i)
+{
+    if (no != NULL)
+    {
+        imprimir_arvore(no->esq, i + 1);
+        printf(" (%d) \n", no->chave);
+        imprimir_arvore(no->dir, i + 1);
     }
 }
 
-void imprimir_arvore( No * no, int i){
-    if(no!=NULL){
-        imprimir_arvore(no->esq, i+1);
-        printf(" (%d) \n",no->chave);
-        imprimir_arvore(no->dir, i+1);
-    }
+void remover_no_arvore(Arvore *arvore, No *no)
+{
 }
 
-void remover_no_arvore(Arvore * arvore, No * no){
-
-}
-
-No * minimo_arvore(No * x){
-    No * y = x;
-    while(y!=NULL && y->esq!=NULL){
-        y=y->esq;
+No *minimo_arvore(No *x)
+{
+    No *y = x;
+    while (y != NULL && y->esq != NULL)
+    {
+        y = y->esq;
     }
     return y;
 }
 
 // nesse caso sabemos que X tem dois filhos
 // essa função é parcial
-No * sucessor_arvore(No * x){
-    assert(x->dir!=NULL);
-    //No * y = x->dir;
-    return minimo(x->dir);// y
-
+No *sucessor_arvore(No *x)
+{
+    assert(x->dir != NULL);
+    // No * y = x->dir;
+    return minimo(x->dir); // y
 }
 
-void remover_no_arvore_chave(Arvore * arvore, int chave){
-    No * no = buscar_no(chave,arvore);
-    if(no!=NULL){
-         //caso 3: com dois filhos
-         if(no->esq!=NULL && no->dir!=NULL){
-            No * sucessor = sucessor_arvore(no);
+void remover_no_arvore_chave(Arvore *arvore, int chave)
+{
+    No *no = buscar_no(chave, arvore);
+    if (no != NULL)
+    {
+        // caso 3: com dois filhos
+        if (no->esq != NULL && no->dir != NULL)
+        {
+            No *sucessor = sucessor_arvore(no);
             int chave_sucessor = sucessor->chave;
             remover_no_arvore_chave(arvore, chave_sucessor);
             no->chave = chave_sucessor;
-            //aqui você copiaria também dados satélites
-
-         }
-        //caso 1: folha, sem filhos
-        else if(no->esq== NULL && no->dir==NULL){
-            No * mae = no->mae;
-            if(no->chave > mae->chave){
+            // aqui você copiaria também dados satélites
+        }
+        // caso 1: folha, sem filhos
+        else if (no->esq == NULL && no->dir == NULL)
+        {
+            No *mae = no->mae;
+            if (no->chave > mae->chave)
+            {
                 mae->dir = NULL;
             }
-            else{
+            else
+            {
                 mae->esq = NULL;
             }
             free(no);
         }
-        //caso 2: com apenas um filho
-        //No * mae = 
-        else{
-            No * filho = no->esq!=NULL? no->esq : no->dir;
-            No * mae = no->mae;
+        // caso 2: com apenas um filho
+        // No * mae =
+        else
+        {
+            No *filho = no->esq != NULL ? no->esq : no->dir;
+            No *mae = no->mae;
             // no removido esta a direita de sua mãe
-            if(no->chave > mae->chave){
+            if (no->chave > mae->chave)
+            {
                 mae->dir = filho;
             }
-            // no removido esta a esquerda de sua mãe 
-            else{
+            // no removido esta a esquerda de sua mãe
+            else
+            {
                 mae->esq = filho;
             }
             filho->mae = mae;
             free(no);
-
         }
-       
     }
 }
 
@@ -173,12 +249,13 @@ void remover_no_arvore_chave(Arvore * arvore, int chave){
 int main()
 {
     srand(time(NULL));
-    Arvore * arvore = criar_arvore();
-    for(int i = 0; i < TAM; i = i +1){
-        int chave = rand()%100;
-        inserir_no(criar_no(chave),arvore);
+    Arvore *arvore = criar_arvore();
+    for (int i = 0; i < TAM; i = i + 1)
+    {
+        int chave = rand() % 100;
+        inserir_no(criar_no(chave), arvore);
     }
-    imprimir_arvore(arvore->raiz,0);
+    imprimir_arvore(arvore->raiz, 0);
 
     return EXIT_SUCCESS;
 }
