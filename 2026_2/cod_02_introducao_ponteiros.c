@@ -3,7 +3,11 @@
 #include <time.h>
 #include <stdbool.h>
 
-
+void trocar_quebrada(int a, int b){
+    int temp = a;
+    a = b;
+    b = temp;
+}
 
 void trocar(int * a, int * b){
     int temp = *a;
