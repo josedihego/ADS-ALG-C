@@ -1,1 +1,16 @@
+# Executáveis compilados (arquivos sem extensão): ignora tudo,
+# depois libera pastas e arquivos que têm extensão (.c, .h, .in, .out, ...)
+*
+!*/
+!*.*
+
+# Outros artefatos de compilação
+# (não ignorar *.out: há arquivos .out de teste em texto)
+a.out
+*.dSYM/
+*.o
+*.exe
+build/
+.DS_Store
+
 /rsa
