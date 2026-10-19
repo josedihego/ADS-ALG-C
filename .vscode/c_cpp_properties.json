@@ -1,24 +1,13 @@
 {
   "configurations": [
     {
-      "name": "macos-clang-x64",
-      "includePath": [
-        "${workspaceFolder}/**"
-      ],
-      "compilerPath": "/usr/bin/clang",
-      "cStandard": "${default}",
-      "cppStandard": "${default}",
-      "intelliSenseMode": "macos-clang-x64"
-    },
-    {
-      "name": "macOS",
+      "name": "Mac",
       "includePath": [
         "${workspaceFolder}/**"
       ],
       "compilerPath": "/usr/bin/clang",
       "cStandard": "c17",
-      "cppStandard": "c++17",
-      "intelliSenseMode": "macos-clang-x64"
+      "cppStandard": "c++17"
     },
     {
       "name": "Linux",

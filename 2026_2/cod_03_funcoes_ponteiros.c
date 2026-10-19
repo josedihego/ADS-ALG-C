@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <time.h>
+#include <math.h>
 
 // fatorial
 int calc_fatorial(int numero){
@@ -31,6 +32,8 @@ bool eh_primo(int numero){
 }
 
 int main(){
+    double x = sqrt(10);
+    printf("%f\n",x);
     srand(time(NULL));
     int valor = rand()%15;
     int r = calc_fatorial(valor);
